@@ -18,7 +18,16 @@ class Question(models.Model):
 
     def was_published_recently(self):
         return self.pub_date >= (timezone.now() - datetime.timedelta(days=1))
+        
+        # Faz a interação para a chamativa do admin para fazer o filtro dos dados de 
+        # acordo com a data de publicação DateTimeField
+        # O Tipo de filtro depende do tipo de campo que se quer filtrar. Porque pub_date é DateTimeField,
+        # Django conheçe as opões dos filtros apropriados como o 'Any date', 
+        # 'Today', 'Past 7 days', 'This month' and 'This year'
 
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'published recently?'
 
 class Choice(models.Model):     # __unicode__ on Python 2
 

@@ -40,6 +40,19 @@ class QuestionAdmin(admin.ModelAdmin):
 
     list_display = ('question_text', 'pub_date', 'was_published_recently')
     
+    # Faz a filtragem dos dados da página de acordo com a data de publicação
+    # Foi feito modificações na def was_published_recently(self) com os dados 
+    # a serem definidos para fazer o filtro
+
+    list_filter = ['pub_date']
+
+    # Adiciona o filtro no topo da página de modificação da questão
+    # Trabalha em conjunto com o list_filter já implementado para o código do 
+    # list_filter = ['pub_date'], ao retirar-lo ele volta para a parte do código
+    # sem o search mais com as implementações de filtro já feitas pelo list_filter
+
+    search_fields = ['question_text']
+
     inlines = [ChoiceInline]
 # admin.site.register(Question)
 
