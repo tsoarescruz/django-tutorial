@@ -30,5 +30,3 @@ class Choice(models.Model):     # __unicode__ on Python 2
     # ...
     def __str__(self):
         return self.choice_text
-
-
