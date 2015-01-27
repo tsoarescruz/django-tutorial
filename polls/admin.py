@@ -4,9 +4,15 @@ from django.contrib import admin
 from polls.models import Choice
 from polls.models import Question
 
+        # Faz a adição dos campos de choices de forma linear, ao contrário do outro  
+        # código que só me permitia fazer a adição de um só campo; este tipo de código 
+        # permite que eu possa fazer adições em série para o meu database;
+
 class ChoiceInline(admin.StackedInline):
     model = Choice
     extra = 3
+
+
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
