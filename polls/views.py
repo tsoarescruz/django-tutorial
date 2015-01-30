@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
+from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse("Hello, World. You're at the polls Index.")
+
+
 # Todo o trecho que está em comentário foi exemplos que o Kibe fez para me passar 
 # informações de como poderia ser feita a orientação objeto no python e como que
 # era definida as funções - def
@@ -11,27 +18,27 @@ from django.shortcuts import render
 
 # class Pessoa(object):
 
-	# def __init__(self):
-		# pass
+    # def __init__(self):
+        # pass
 
-		#  metodo construtor precisa da passagem de parametro do self
-		#  o pass faz a passagem do método, como não foi 
-		#  implementado codigo nenhum neste método ele ignora e passa. 
+        #  metodo construtor precisa da passagem de parametro do self
+        #  o pass faz a passagem do método, como não foi 
+        #  implementado codigo nenhum neste método ele ignora e passa. 
 
 
-	# def msg(self):
-		# return "teste"
+    # def msg(self):
+        # return "teste"
 
 
 
 # class Pessoa(object):
 
-# 	def __init__(self):
-# 		pass
+#   def __init__(self):
+#       pass
 
 
-# 	def msg(self):
-# 		pass
+#   def msg(self):
+#       pass
 
 
 
