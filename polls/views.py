@@ -7,6 +7,19 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("Hello, World. You're at the polls Index.")
 
+# As funões abaixo recebem valores passados pelos parâmetros e fazem o HttpResponse
+# Mostrando os títulos das funções atribuídas a elas
+
+def detail(request, question_id):
+    return HttpResponse("You're looking at question %s." % question_id)
+
+def results(request, question_id):
+    response="You're looking at the results of question %s."
+    return HttpResponse(response % question_id)
+
+def vote(request, question_id):
+    return HttpResponse("You're voting on question %s." % question_id)
+
 
 # Todo o trecho que está em comentário foi exemplos que o Kibe fez para me passar 
 # informações de como poderia ser feita a orientação objeto no python e como que
