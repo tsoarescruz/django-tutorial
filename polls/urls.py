@@ -20,4 +20,7 @@ urlpatterns = patterns('',
     url(r'^(?P<question_id>\d+)/results/$', views.results, name='results'),
     # Ex: /polls/5/vote/
     url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
+
+    # ?P<question_id> --> Define o nome que será usado para identificar o padrão correspondido.
+    # \d+ --> É a expressão regular que corresponde a sequência de dígitos. 
 )
