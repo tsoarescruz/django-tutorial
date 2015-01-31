@@ -2,10 +2,16 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from polls.models import Question
 
 
 def index(request):
-    return HttpResponse("Hello, World. You're at the polls Index.")
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    output = ', '.join([p.question_text for p in latest_question_list])
+    return HttpResponse(output)
+
+
+    # return HttpResponse("Hello, World. You're at the polls Index.")
 
 # As funões abaixo recebem valores passados pelos parâmetros e fazem o HttpResponse
 # Mostrando os títulos das funções atribuídas a elas
