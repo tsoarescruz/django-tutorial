@@ -1,0 +1,12 @@
+{% if latest_question_list %}
+	<!-- Faz a criação de uma lista não ordenada -->
+	<ul> 
+	{% for question in latest_question_list %}
+	<!-- Faz a inserção de um item na lista -->
+		<li><a href="/polls/{{question.id}}/">{{ question.question_text }} </a>
+</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No polls are available.</p>
+{% endif %}

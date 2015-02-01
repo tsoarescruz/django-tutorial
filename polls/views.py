@@ -2,13 +2,28 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import RequestContext, loader
 from polls.models import Question
 
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    output = ', '.join([p.question_text for p in latest_question_list])
-    return HttpResponse(output)
+    # output = ', '.join([p.question_text for p in latest_question_list])
+    template = loader.get_template('polls/index.html')
+    # Cria um objeto contexto sendo um dicionário de dados, funciona como se fosse um vetor com 
+    # a chave (index --> 'latest_question_list') e os valores indexados a chave :latest_question_list
+    # O código carrega o template chamado polls/index.html e passa o context; o contecto é um dicionário
+    # de dados mapeando as variáveis d template para os objetos do Phyton.
+
+    context = RequestContext(request, {
+        'latest_question_list': latest_question_list,
+        })
+
+    # Esse output na saída está referenciado ao valor de output que foi indexado a p e que está em comentário
+    # Conforme fui avançando do tutorial, foi feito outro valor de output
+    # return HttpResponse(output)
+
+    return HttpResponse(template.render(context))
 
 
     # return HttpResponse("Hello, World. You're at the polls Index.")
