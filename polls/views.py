@@ -1,35 +1,86 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import RequestContext, loader
 from polls.models import Question
 
 
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    # Esses imports fazem parte da 2 opção de saída da views.
+
+# from django.http import HttpResponse
+# from django.template import RequestContext, loader
+
+
+    # Essa função de index faz o retorno do objeto com o HttpResponse
+    # Está atrelada com a programação do script feito no index.html
+    # Essa foi a segunda opção de response do template apresentada no Tutorial
+    # A primeira opção está contida na segunda e está em comentário somente com a modificação da saída do output
+    # Irei deixar a segunda opção toda em comentário e gerar o código de saída da função index separado para a terceira opção.
+
+
+    # 2 opção de saída da view. Utilizando o método do HttpResponse
+
+# def index(request):
+
+    # Latest_question faz o carregamento dos objetos ordenando pela variável de pub_date (data de publicação).
+    # o número em colchete, deve fazer referência ao número total de ordenações.
+
+    # latest_question_list = Question.objects.order_by('-pub_date')[:5]
     # output = ', '.join([p.question_text for p in latest_question_list])
-    template = loader.get_template('polls/index.html')
+    
+    # Acredito que esse método faça o loader do template indicando o ponteiro para onde a página html se encontra
+    # Acredito que ele já esteja direcionado para a página template criada diretamente n projeto.
+
+    # <!-- Fazer pergunta a equipe se ao criar o diretório template se já fica um ponteiro para o caminho template
+    # devido a ser suprimido o restante da string do caminho. --!>
+
+    # template = loader.get_template('polls/index.html')
+    
     # Cria um objeto contexto sendo um dicionário de dados, funciona como se fosse um vetor com 
     # a chave (index --> 'latest_question_list') e os valores indexados a chave :latest_question_list
     # O código carrega o template chamado polls/index.html e passa o context; o contecto é um dicionário
     # de dados mapeando as variáveis d template para os objetos do Phyton.
 
-    context = RequestContext(request, {
-        'latest_question_list': latest_question_list,
-        })
+    # context = RequestContext(request, {
+        # 'latest_question_list': latest_question_list,
+        # })
 
     # Esse output na saída está referenciado ao valor de output que foi indexado a p e que está em comentário
     # Conforme fui avançando do tutorial, foi feito outro valor de output
+   
     # return HttpResponse(output)
 
-    return HttpResponse(template.render(context))
+    # return HttpResponse(template.render(context))
 
+    # Término da 2 opção
+
+    # Este return não foi da primeira opção de saída da view e sim para a primeira manipulação do index.
+    # Somente para ter alguma saída na chamativa da página.
 
     # return HttpResponse("Hello, World. You're at the polls Index.")
 
+    # Término da 1 opção <!-- somente incluía a saída do return HttpResponse(output) para para a saída da view.
+
 # As funões abaixo recebem valores passados pelos parâmetros e fazem o HttpResponse
 # Mostrando os títulos das funções atribuídas a elas
+
+
+    # 3 opção de saída da view. Utilizando o atalho na renderização
+    # o que muda nessa opção de renderizar é a retirada da linha template = loader.get_template('polls/index.html')
+    # Essa opção de informar o template que vai ser renderizado na página, vai junto com o return, na passagem do 
+    # parâmetro render, caminho e o dicionário de dados utilizado.
+    # Equivale ao HttpResponse anterior só que de outra forma --> return HttpResponse (template.render(context)).
+
+def index(request):
+
+    latest_question_list = Question.ob.order_by('pub_date') [:5]
+    context = RequestContext(request, {
+        'latest_question_list': latest_question_list,
+        })
+    return(render, 'polls/index.html', context)
+
+
+
+    #    
 
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
