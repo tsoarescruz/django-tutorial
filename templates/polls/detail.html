@@ -1,1 +1,14 @@
-{{ question }}
+<!-- 1 <h1>{{ question }}</h1> !-->
+
+
+<!-- Este template utiliza a sintaxe dot.lokup parafazer acesso a variáveis dos atributos
+Primeiro o Django faz a pesquisa como dicionário de objetos; Na falha da pesquisa de 
+entradas ele pesquisa como atributos. 
+
+ -->
+<h1> {{question.question_text}} </h1>
+<ul>
+{% for choice in question.choice_set.all %}
+	<li>{{choice.choice_text}} </li>
+{% end for}
+</ul>

@@ -8,9 +8,11 @@ from polls.models import Question
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-    # <!-- 3 Reporte de 404 erro
+    #<!-- 1 Reporte de 404 erro
+# from django.http import Http404    
 
-from django.http import Http404    
+    #<!-- 2 Faz o shortcut do erro 404
+from django.shortcuts import get_object_or_404
 
     # Essa função de index faz o retorno do objeto com o HttpResponse
     # Está atrelada com a programação do script feito no index.html
@@ -81,14 +83,23 @@ def index(request):
 
 
 def detail(request, question_id):
+    # Esta implementação faz o retorno do question_id como parâmetro informado no endereço do 
+    # página, informado pelo endereçamento da url 
     # <!--1 return HttpResponse("You're looking at question %s." % question_id)
  
 # Excessão para o erro 404 --> Caso o question_id não exista ele cai nessa excessão.
 
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exists")
+    #Implementação do error 404
+    #<!-- 2 try:
+    #<!-- 2     question = Question.objects.get(pk=question_id)
+    #<!-- 2 except Question.DoesNotExist:
+    #<!-- 2     raise Http404("Question does not exists")
+    #<!-- 2 return render(request, 'polls/detail.html', {'question': question })
+
+
+    # <!--Implementação do shortcuts do error 404
+
+    question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question })
 
 def results(request, question_id):
@@ -97,6 +108,24 @@ def results(request, question_id):
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Todo o trecho que está em comentário foi exemplos que o Kibe fez para me passar 
