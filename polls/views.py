@@ -6,8 +6,8 @@ from polls.models import Question
 
     # Esses imports fazem parte da 2 opção de saída da views.
 
-# from django.http import HttpResponse
-# from django.template import RequestContext, loader
+from django.http import HttpResponse
+from django.template import RequestContext, loader
 
 
     # Essa função de index faz o retorno do objeto com o HttpResponse
@@ -19,12 +19,12 @@ from polls.models import Question
 
     # 2 opção de saída da view. Utilizando o método do HttpResponse
 
-# def index(request):
+# <!--2 def index(request):
 
     # Latest_question faz o carregamento dos objetos ordenando pela variável de pub_date (data de publicação).
     # o número em colchete, deve fazer referência ao número total de ordenações.
 
-    # latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    # <!--2 latest_question_list = Question.objects.order_by('-pub_date')[:5]
     # output = ', '.join([p.question_text for p in latest_question_list])
     
     # Acredito que esse método faça o loader do template indicando o ponteiro para onde a página html se encontra
@@ -33,23 +33,23 @@ from polls.models import Question
     # <!-- Fazer pergunta a equipe se ao criar o diretório template se já fica um ponteiro para o caminho template
     # devido a ser suprimido o restante da string do caminho. --!>
 
-    # template = loader.get_template('polls/index.html')
+    # <!--2 template = loader.get_template('polls/index.html')
     
     # Cria um objeto contexto sendo um dicionário de dados, funciona como se fosse um vetor com 
     # a chave (index --> 'latest_question_list') e os valores indexados a chave :latest_question_list
     # O código carrega o template chamado polls/index.html e passa o context; o contecto é um dicionário
     # de dados mapeando as variáveis d template para os objetos do Phyton.
 
-    # context = RequestContext(request, {
-        # 'latest_question_list': latest_question_list,
-        # })
+    # <!--2 context = RequestContext(request, {
+        # <!--2 'latest_question_list': latest_question_list,
+      # <!--2  })
 
     # Esse output na saída está referenciado ao valor de output que foi indexado a p e que está em comentário
     # Conforme fui avançando do tutorial, foi feito outro valor de output
    
     # return HttpResponse(output)
 
-    # return HttpResponse(template.render(context))
+    # <!--2 return HttpResponse(template.render(context))
 
     # Término da 2 opção
 
@@ -61,13 +61,14 @@ from polls.models import Question
     # Término da 1 opção <!-- somente incluía a saída do return HttpResponse(output) para para a saída da view.
 
 # As funões abaixo recebem valores passados pelos parâmetros e fazem o HttpResponse
-# Mostrando os títulos das funções atribuídas a elas
+# Mostrando os títulos das funções atribuídas a elas.
 
 
     # 3 opção de saída da view. Utilizando o atalho na renderização
     # o que muda nessa opção de renderizar é a retirada da linha template = loader.get_template('polls/index.html')
-    # Essa opção de informar o template que vai ser renderizado na página, vai junto com o return do método render, na passagem do 
-    # parâmetro request, caminho e o dicionário de dados utilizado.
+    # Essa opção de informar o template que vai ser renderizado na página, vai junto com o return do na função render, 
+    # na passagem de parâmetro requer o request como primeiro argumento, caminho (template) como segundo argumento 
+    # e o dicionário de dados, utilizado como terceiro argumento.
     # Equivale ao HttpResponse anterior só que de outra forma --> return HttpResponse (template.render(context)).
 
 def index(request):
@@ -76,9 +77,6 @@ def index(request):
     context = {'latest_question_list': latest_question_list}
     return render (request, 'polls/index.html', context)
 
-
-
-    #    
 
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
