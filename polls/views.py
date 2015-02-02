@@ -66,17 +66,15 @@ from polls.models import Question
 
     # 3 opção de saída da view. Utilizando o atalho na renderização
     # o que muda nessa opção de renderizar é a retirada da linha template = loader.get_template('polls/index.html')
-    # Essa opção de informar o template que vai ser renderizado na página, vai junto com o return, na passagem do 
-    # parâmetro render, caminho e o dicionário de dados utilizado.
+    # Essa opção de informar o template que vai ser renderizado na página, vai junto com o return do método render, na passagem do 
+    # parâmetro request, caminho e o dicionário de dados utilizado.
     # Equivale ao HttpResponse anterior só que de outra forma --> return HttpResponse (template.render(context)).
 
 def index(request):
 
-    latest_question_list = Question.ob.order_by('pub_date') [:5]
-    context = RequestContext(request, {
-        'latest_question_list': latest_question_list,
-        })
-    return(render, 'polls/index.html', context)
+    latest_question_list = Question.objects.order_by('pub_date') [:5]
+    context = {'latest_question_list': latest_question_list}
+    return render (request, 'polls/index.html', context)
 
 
 
