@@ -1,0 +1,16 @@
+<!--  
+A linha {% extends "admin/base_site.html" %} Faz a extenção do template para o arquivo que estiver informado.
+Faz a sobreposição do template original para as páginas que estiverem ligadas a ele.
+
+Foi modificado o nome do arquivo para que ele possa voltar para o template original do admin e eu possa 
+realizar testes e apresentações.
+!-->
+
+{% extends "admin/base_site.html" %}
+
+{% block title %} Polls {% endblock %}
+{% block branding %}	
+<h1 id ="Polls site">
+	<a href="{% url 'admin:index' %}"> Polls Administration </a>
+</h1>
+{% endblock %}

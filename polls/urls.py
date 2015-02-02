@@ -4,6 +4,7 @@ from django.conf.urls import patterns, url
 from polls import views
 
 
+
     # Quando é feita a chamativa de "/pools/34" Django irá carregar o mysite.urls, por que módulo do 
     # Paython irá apontar para a confguração do ROOT_URLCONF
 

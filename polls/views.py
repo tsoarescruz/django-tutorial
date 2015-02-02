@@ -3,12 +3,14 @@
 from django.shortcuts import render
 from polls.models import Question
 
-
-    # Esses imports fazem parte da 2 opção de saída da views.
+    #<!--2 Esses imports fazem parte da 2 opção de saída da views.
 
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
+    # <!-- 3 Reporte de 404 erro
+
+from django.http import Http404    
 
     # Essa função de index faz o retorno do objeto com o HttpResponse
     # Está atrelada com a programação do script feito no index.html
@@ -47,7 +49,7 @@ from django.template import RequestContext, loader
     # Esse output na saída está referenciado ao valor de output que foi indexado a p e que está em comentário
     # Conforme fui avançando do tutorial, foi feito outro valor de output
    
-    # return HttpResponse(output)
+    # <!--1 return HttpResponse(output)
 
     # <!--2 return HttpResponse(template.render(context))
 
@@ -56,7 +58,7 @@ from django.template import RequestContext, loader
     # Este return não foi da primeira opção de saída da view e sim para a primeira manipulação do index.
     # Somente para ter alguma saída na chamativa da página.
 
-    # return HttpResponse("Hello, World. You're at the polls Index.")
+    # <!-- 0  return HttpResponse("Hello, World. You're at the polls Index.")
 
     # Término da 1 opção <!-- somente incluía a saída do return HttpResponse(output) para para a saída da view.
 
@@ -79,7 +81,15 @@ def index(request):
 
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at question %s." % question_id)
+    # <!--1 return HttpResponse("You're looking at question %s." % question_id)
+ 
+# Excessão para o erro 404 --> Caso o question_id não exista ele cai nessa excessão.
+
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exists")
+    return render(request, 'polls/detail.html', {'question': question })
 
 def results(request, question_id):
     response="You're looking at the results of question %s."
