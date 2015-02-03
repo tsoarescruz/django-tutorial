@@ -1,4 +1,7 @@
+
+<!-- Utiliza a linguagem Jinja para fazer a programação ao template e passar os parâmetros para a View  -->
 <!-- Esta é uma linguagem de manipulação de template do Djando. !-->
+<!-- O comentário no Jinja é {# #} -->
 
 {% if latest_question_list %}
     <!-- Faz a criação de uma lista não ordenada -->
@@ -16,8 +19,7 @@
         <!-- Adicionando NameSpace na chamativa da App; A adição de NameSpace, faz o vinculo das Urls
         com as aplicações, serve para quando se tem várias apps no mesmo projeto, poder fazer o vínculo
         de quais urls estão atreladas a quais apps.
-        -->      
-
+        -->     
  
         <li><a href="{% url 'polls:detail' question.id %}">{{question.question_text}} 
         </li>

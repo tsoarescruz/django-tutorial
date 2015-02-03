@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from polls.models import Question
+from polls.models import Question, Choice  
 
-    #<!--2 Esses imports fazem parte da 2 opção de saída da views.
+    #<!-- 2 Esses imports fazem parte da 2 opção de saída da views.
 
-from django.http import HttpResponse
+    # <!-- 3
+# from django.http import HttpResponse
 from django.template import RequestContext, loader
 
     #<!-- 2 Reporte de 404 erro
 # from django.http import Http404    
 
     #<!-- 3 Faz o shortcut do erro 404
-from django.shortcuts import get_object_or_404
+# from django.shortcuts import get_object_or_404
+
+    #<!-- 4
+from django.shortcuts import get_object_or_404, render
+
+    #<!-- 4 
+from django.http import HttpResponseRedirect, HttpResponse
+
+    # <!-- 4
+from django.core.urlresolvers import reverse
 
     # Essa função de index faz o retorno do objeto com o HttpResponse
     # Está atrelada com a programação do script feito no index.html
@@ -23,7 +32,7 @@ from django.shortcuts import get_object_or_404
 
     # 2 opção de saída da view. Utilizando o método do HttpResponse
 
-# <!--2 def index(request):
+# <!-- 2 def index(request):
 
     # Latest_question faz o carregamento dos objetos ordenando pela variável de pub_date (data de publicação).
     # o número em colchete, deve fazer referência ao número total de ordenações.
@@ -107,8 +116,23 @@ def results(request, question_id):
     return HttpResponse(response % question_id)
 
 def vote(request, question_id):
-    return HttpResponse("You're voting on question %s." % question_id)
+    
+    #<!-- 1
+     # return HttpResponse("You're voting on question %s." % question_id)
+     p = get_object_or_404(Question, pk=question_id)
+     try:
+        selected_choice = p.choice_set.get(pk=request.POST['choice'])
+     except(keyError, Choice.DoesNotExist):
+          # Redisplay the question voting form
+         return render(request, 'polls/detail.html', {
+             'question': p,
+             'error_message': " You didn't select a Choice."
+          })
+     else:
+          selected_choice.votes += 1
+          selected_choice.save() 
 
+          return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
 
 
 

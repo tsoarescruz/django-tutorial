@@ -1,14 +1,33 @@
-<!-- 1 <h1>{{ question }}</h1> !-->
+<!-- Utiliza a linguagem Jinja para fazer a programação ao template e passar os parâmetros para a View  -->
+
+{# <!-- 1 <h1>{{ question }}</h1> !--> #}
 
 
-<!-- Este template utiliza a sintaxe dot.lokup parafazer acesso a variáveis dos atributos
+<!--  2 Este template utiliza a sintaxe dot.lokup parafazer acesso a variáveis dos atributos
 Primeiro o Django faz a pesquisa como dicionário de objetos; Na falha da pesquisa de 
 entradas ele pesquisa como atributos. 
 
- -->
-<h1> {{question.question_text}} </h1>
-<ul>
+--> 
+ 
+ {# <!-- <h1> {{question.question_text}} </h1> --> #}
+{# <!-- <ul> --> #}
+{# <!-- {% for choice in question.choice_set.all %} --> #}
+	{# <!-- <li>{{choice.choice_text}} </li> --> #}
+{# <!-- {% endfor %} --> #}
+{# <!-- </ul> --> #}
+
+
+<!--  3 Alteraão com Jinja -->
+
+<h1>{{question.question_text}}</h1>
+{% if error_mensage %}<p><strong>{{ error_message }}</strong></p> {%endif%}
+
+<form action="{%url 'polls:vote' question.id}" method="post">
+{% csrf_token %}
 {% for choice in question.choice_set.all %}
-	<li>{{choice.choice_text}} </li>
-{% end for}
-</ul>
+	<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{choice.id}}" />
+	<label for="choice {{forloop.counter}}">{{ choice.choice_text}} </label><br/>
+	{% endfor %}
+	<input type="submit" value="Vote"/>
+	</form>
+
