@@ -12,7 +12,14 @@ urlpatterns = patterns('',
     # Na página 3 do tutorial. A linha url(r'^admin/', include(admin.site.urls)) já é default do Django
     # Não houve modificação nessa linha. Já estava default da página.
 
-    url(r'^polls/', include('polls.urls')),
+    # <!-- 1 url(r'^polls/', include('polls.urls')),
+    
+    # <!-- 2 Adicionando NameSpace na chamativa da App; A adição de NameSpace, faz o vinculo das Urls
+    # com as aplicações, serve para quando se tem várias apps no mesmo projeto, poder fazer o vínculo
+    # de quais urls estão atreladas a quais apps.
+    
+
+    url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^admin/', include(admin.site.urls)),
 
     # Expressão regulares, são os primeiros parâmetros passados dentro da URL e a view que ela 

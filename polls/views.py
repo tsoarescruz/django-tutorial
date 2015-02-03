@@ -8,10 +8,10 @@ from polls.models import Question
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-    #<!-- 1 Reporte de 404 erro
+    #<!-- 2 Reporte de 404 erro
 # from django.http import Http404    
 
-    #<!-- 2 Faz o shortcut do erro 404
+    #<!-- 3 Faz o shortcut do erro 404
 from django.shortcuts import get_object_or_404
 
     # Essa função de index faz o retorno do objeto com o HttpResponse
@@ -97,7 +97,7 @@ def detail(request, question_id):
     #<!-- 2 return render(request, 'polls/detail.html', {'question': question })
 
 
-    # <!--Implementação do shortcuts do error 404
+    # <!-- 3 Implementação do shortcuts do error 404
 
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question })
@@ -108,22 +108,6 @@ def results(request, question_id):
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
