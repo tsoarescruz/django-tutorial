@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+
+
 from polls.models import Question, Choice  
 
     #<!-- 2 Esses imports fazem parte da 2 opção de saída da views.
@@ -14,14 +16,16 @@ from django.template import RequestContext, loader
     #<!-- 3 Faz o shortcut do erro 404
 # from django.shortcuts import get_object_or_404
 
-    #<!-- 4
+    #<!-- 4 Shortcut do error404
 from django.shortcuts import get_object_or_404, render
 
     #<!-- 4 
 from django.http import HttpResponseRedirect, HttpResponse
 
-    # <!-- 4
+    #<!-- 4
 from django.core.urlresolvers import reverse
+
+from django.views import generic
 
     # Essa função de index faz o retorno do objeto com o HttpResponse
     # Está atrelada com a programação do script feito no index.html
@@ -112,25 +116,57 @@ def detail(request, question_id):
     return render(request, 'polls/detail.html', {'question': question })
 
 def results(request, question_id):
-    response="You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
+    
+    # <!--1
+    # response="You're looking at the results of question %s."
+    # return HttpResponse(response % question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/results.html', {'question': question})
 
 def vote(request, question_id):
     
     #<!-- 1
      # return HttpResponse("You're voting on question %s." % question_id)
+     
+    #<!-- 2 Escrevendo um form simples 
      p = get_object_or_404(Question, pk=question_id)
      try:
         selected_choice = p.choice_set.get(pk=request.POST['choice'])
-     except(keyError, Choice.DoesNotExist):
+     except(KeyError, Choice.DoesNotExist):
           # Redisplay the question voting form
          return render(request, 'polls/detail.html', {
              'question': p,
-             'error_message': " You didn't select a Choice."
+             'error_message': "You didn't select a Choice."
           })
      else:
-          selected_choice.votes += 1
-          selected_choice.save() 
+         selected_choice.votes += 1
+         selected_choice.save() 
 
-          return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+         # Ex: '/polls/3/results/'
+         # A funcão reverse ajuda a evitar que se escreva a URL na função da view. 
+         return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+
+
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    conte_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """Return the last five publishe question."""
+        return Question.obects.order_by('-pub_date') [:5]
+
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
+
+
+
+
+
 
