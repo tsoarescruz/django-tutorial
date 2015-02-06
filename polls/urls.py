@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     # Ex: /polls/
     # url(r'^$', views.index, name='index'),
     #<!-- 2 View Genérica
-    url(r'^$', views.IndexView.as_view(), name ='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     #Ex: /polls/5/
     #<-- 1 url(r'^(?P<question_id>\d+)/$', views.detail,name='detail'),
     
@@ -33,11 +33,13 @@ urlpatterns = patterns('',
     # Ex: /polls/5/results/
     # url(r'^(?P<question_id>\d+)/results/$', views.results, name='results'),
     # <!-- 2 View Genérica
-    url(r'^(?P<pk>\d+)/results/$'), views.ResultsView.as_view(), name='results'),
-
+    url(r'^(?P<pk>\d+)/results/$', views.ResultsView.as_view(), name='results'),
+    
     # Ex: /polls/5/vote/
     # <!-- 2 View Genérica
     url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
+
+    # url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
 
     # ?P<question_id> --> Define o nome que será usado para identificar o padrão correspondido.
     # \d+ --> É a expressão regular que corresponde a sequência de dígitos. 

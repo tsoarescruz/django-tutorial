@@ -17,8 +17,12 @@ class Question(models.Model):
         return self.question_text
 
     def was_published_recently(self):
-        return self.pub_date >= (timezone.now() - datetime.timedelta(days=1))
+        # return self.pub_date >= (timezone.now() - datetime.timedelta(days=1))
         
+        # Auteração do método para que retrne
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
         # Faz a interação para a chamativa do admin para fazer o filtro dos dados de 
         # acordo com a data de publicação DateTimeField
         # O Tipo de filtro depende do tipo de campo que se quer filtrar. Porque pub_date é DateTimeField,

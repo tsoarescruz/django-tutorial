@@ -88,9 +88,12 @@ from django.views import generic
     # e o dicionário de dados, utilizado como terceiro argumento.
     # Equivale ao HttpResponse anterior só que de outra forma --> return HttpResponse (template.render(context)).
 
+# import ipdb; ipdb.set_trace();
+    # Faz teste 
+
 def index(request):
 
-    latest_question_list = Question.objects.order_by('pub_date') [:5]
+    latest_question_list = Question.objects.order_by('pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
     return render (request, 'polls/index.html', context)
 
@@ -135,7 +138,7 @@ def vote(request, question_id):
      except(KeyError, Choice.DoesNotExist):
           # Redisplay the question voting form
          return render(request, 'polls/detail.html', {
-             'question': p,
+             'question': polls,
              'error_message': "You didn't select a Choice."
           })
      else:
@@ -149,14 +152,19 @@ def vote(request, question_id):
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
-    conte_object_name = 'latest_question_list'
+    # Variável de context[]\o, faz o mesmo papel da latest_questio_list instanciada. 
+    # Essa variável está sobreescrevendo a variável default do
+    context_object_name = 'latest_question_list'
+
 
     def get_queryset(self):
-        """Return the last five publishe question."""
-        return Question.obects.order_by('-pub_date') [:5]
+        """Return the last five published questions."""
+        return Question.objects.order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
+# Variável de contexto question e latest_question_list são geradas automaticamete de modelo Question do Django.
+
     model = Question
     template_name = 'polls/detail.html'
 
@@ -164,9 +172,3 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-
-
-
-
-
-
