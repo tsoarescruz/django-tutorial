@@ -19,7 +19,7 @@ class Question(models.Model):
     def was_published_recently(self):
         # return self.pub_date >= (timezone.now() - datetime.timedelta(days=1))
         
-        # Auteração do método para que retrne
+        # Alteração do método para que retorne as modficação da data para data futura e verificação da atual
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 

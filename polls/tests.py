@@ -4,7 +4,6 @@ import datetime
 
 from django.utils import timezone
 from django.test import TestCase
-
 from polls.models import Question
 
 class QuestionMethodTests(TestCase):
@@ -41,6 +40,6 @@ class QuestionMethodTests(TestCase):
     	
     	"""
 
-    	time = timezone.now() - datetime.timedelta(days=30)
+    	time = timezone.now() - datetime.timedelta(hours=1)
     	recent_question = Question(pub_date=time)
     	self.assertEqual(recent_question.was_published_recently(), False)
